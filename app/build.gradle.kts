@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -31,17 +31,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     packaging {
         resources {
@@ -69,11 +69,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 // Room
-    val roomVersion = "2.6.1"
-    implementation("androidx.room:room-ktx:$roomVersion")
-    kapt("androidx.room:room-compiler:$roomVersion")
-
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
 // LiveData
-    implementation( "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation( libs.androidx.lifecycle.livedata.ktx)
 }
